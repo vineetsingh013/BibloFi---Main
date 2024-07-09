@@ -1,16 +1,8 @@
-////
-////  HomeView.swift
-////  BiblioFi
-////
-////  Created by Nikunj Tyagi on 05/07/24.
-////
 import Foundation
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 import Firebase
-//
-
 
 struct HomeView: View {
     @State private var isScaled = false
@@ -87,7 +79,7 @@ struct HomeView: View {
                         fetchCourses()
                     }
 //                }
-//                
+//
                 Text("Membership")
                     .font(.custom("Avenir Next Bold", size: 20))
                     .padding(.horizontal)
@@ -204,14 +196,13 @@ struct InfoCard: View {
 }
 
 struct DetailView: View {
-    //@State private var bookId: String = ""
-    @State private var memberId: String = Auth.auth().currentUser?.uid ?? ""
+    @State private var showConfirmationSheet = false
     @State private var statusMessage: String = ""
     var book: Book
+
     var body: some View {
         VStack {
             ScrollView {
-                
                 // Book image and details
                 HStack(alignment: .top) {
                     Image("Book") // Replace with the actual image name
@@ -290,20 +281,14 @@ struct DetailView: View {
                         .font(.custom("AvenirNext-Regular", size: 16))
                 }
                 .padding()
-                
-                
             }
-            
             
             // Checkout and Add to Cart buttons
             Divider()
             HStack {
-                
-                Button(action: sendIssueRequest
-                    //                        showDurationPicker = true
-                    // Action for the Checkout button
-                )
-                {
+                Button(action: {
+                    showConfirmationSheet = true
+                }) {
                     HStack {
                         Image(systemName: "cart")
                         Text("Checkout")
@@ -315,7 +300,9 @@ struct DetailView: View {
                     .foregroundColor(.white)
                     .cornerRadius(8)
                 }
-                
+                .sheet(isPresented: $showConfirmationSheet) {
+                    ConfirmationSheet(isPresented: $showConfirmationSheet, book: book, statusMessage: $statusMessage)
+                }
                 
                 Button(action: {
                     // Action for the Add to Cart button
@@ -333,39 +320,75 @@ struct DetailView: View {
                 }
             }
             .padding()
-            //                .sheet(isPresented: $showDurationPicker) {
-            //                                DurationPickerView(isPresented: $showDurationPicker)
-            //                            }
         }
         .background(Color(hex: "#F9EDEA"))
-        .navigationBarHidden(true)
     }
+}
+
+struct ConfirmationSheet: View {
+    @Binding var isPresented: Bool
+    var book: Book
+    @Binding var statusMessage: String
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text(book.title)
+                .font(.custom("Avenir Next Bold", size: 24))
+                .multilineTextAlignment(.center)
+                .padding(.top)
+
+            Text("Confirm your issue for '\(book.title)' by \(book.author)?")
+                .font(.custom("Avenir Next Regular", size: 18))
+                .multilineTextAlignment(.center)
+                .padding()
+
+            HStack(spacing: 20) {
+                Button(action: {
+                    sendIssueRequest()
+                    isPresented = false
+                }) {
+                    Text("Confirm")
+                        .font(.custom("Avenir Next Regular", size: 16))
+                        .padding()
+                        .frame(minWidth: 100)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+
+                Button(action: {
+                    isPresented = false
+                }) {
+                    Text("Cancel")
+                        .font(.custom("Avenir Next Regular", size: 16))
+                        .padding()
+                        .frame(minWidth: 100)
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+            }
+            .padding(.bottom)
+        }
+        .padding()
+        .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.4)
+        .background(Color(hex: "#F9EDEA")) // Replace with the custom color
+        .cornerRadius(12)
+        .shadow(radius: 10)
+    }
+
     func sendIssueRequest() {
-        print("function is called")
-//        guard !bookId.isEmpty else {
-//            statusMessage = "Please fill in all fields"
-//            return
-//        }
-        
         guard let user = Auth.auth().currentUser else {
             statusMessage = "User not authenticated"
-            print(statusMessage)
             return
         }
-
-        print(user)
-        let memberId = user.uid
-        let memberName = user.displayName ?? "not found"
-        print(memberName)
-        let bookName = book.title
-        let memberEmail = user.email ?? "unknown@example.com"
-        print(memberId)
+        
         let db = Firestore.firestore()
         let request = [
-            "memberId": memberId,
-            "memberName": memberName, // Include memberEmail
+            "memberId": user.uid,
+            "memberName":user.email,
             "bookId": book.id.uuidString,
-            "bookName": bookName,
+            "bookName": book.title,
             "status": "pending",
             "timestamp": FieldValue.serverTimestamp()
         ] as [String : Any]
@@ -379,6 +402,7 @@ struct DetailView: View {
         }
     }
 }
+
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
@@ -395,3 +419,29 @@ struct Blur: UIViewRepresentable {
 
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
 }
+
+//extension Color {
+//    init(hex: String) {
+//        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+//        var int = UInt64()
+//        Scanner(string: hex).scanHexInt64(&int)
+//        let a, r, g, b: UInt64
+//        switch hex.count {
+//        case 3: // RGB (12-bit)
+//            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+//        case 6: // RGB (24-bit)
+//            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+//        case 8: // ARGB (32-bit)
+//            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+//        default:
+//            (a, r, g, b) = (255, 0, 0, 0)
+//        }
+//        self.init(
+//            .sRGB,
+//            red: Double(r) / 255,
+//            green: Double(g) / 255,
+//            blue: Double(b) / 255,
+//            opacity: Double(a) / 255
+//        )
+//    }
+//}

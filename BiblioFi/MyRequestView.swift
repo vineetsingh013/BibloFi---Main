@@ -15,18 +15,22 @@ struct MyRequestView: View {
     @State private var memberId: String = Auth.auth().currentUser?.uid ?? ""
     
     var body: some View {
-        List(requests) { request in
-            VStack(alignment: .leading) {
-                Text("Book ID: \(request.bookId)")
-                Text("Book Name: \(request.bookName)")
-                Text("Status: \(request.status)")
-                    .foregroundColor(statusColor(request.status))
+        NavigationView {
+            List(requests) { request in
+                VStack(alignment: .leading) {
+                    Text("Book ID: \(request.bookId)")
+                    Text("Book Name: \(request.bookName)")
+                    Text("Status: \(request.status)")
+                        .foregroundColor(statusColor(request.status))
+                }
             }
+            .onAppear(perform: fetchMyRequests)
+            .navigationBarTitle("My Requests", displayMode: .inline)
         }
-        .onAppear(perform: fetchMyRequests)
     }
 
     func fetchMyRequests() {
+        print("fetchrequestfunctionsiscalled")
         let db = Firestore.firestore()
         db.collection("requests")
             .whereField("memberId", isEqualTo: memberId)
