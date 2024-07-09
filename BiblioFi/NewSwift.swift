@@ -37,6 +37,9 @@ struct NewSwift: View {
             
             // Library Tab
             NavigationView {
+                MyRequestView()
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarHidden(true)
                
             }
             .tabItem {

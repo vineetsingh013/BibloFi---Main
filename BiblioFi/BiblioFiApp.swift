@@ -45,11 +45,8 @@ struct BiblioFiApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if UserDefaults.standard.bool(forKey: "isLoggedIn") {
-                NewSwift()
-            } else {
-                ContentView()
-            }
+            ContentView()
+            
         }
     }
 }

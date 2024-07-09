@@ -16,6 +16,8 @@
 		08E4F5392C35E4D500D290EF /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E4F5382C35E4D500D290EF /* SignUpView.swift */; };
 		08E4F53B2C35E53E00D290EF /* NewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E4F53A2C35E53E00D290EF /* NewSwift.swift */; };
 		08E4F53D2C3665AF00D290EF /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E4F53C2C3665AF00D290EF /* LoginPage.swift */; };
+		2F2C8C342C3CAE3E0099FDF7 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C8C332C3CAE3E0099FDF7 /* Request.swift */; };
+		2F2C8C362C3CBBD50099FDF7 /* MyRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C8C352C3CBBD40099FDF7 /* MyRequestView.swift */; };
 		446A831F2C354A060042A40E /* BiblioFiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A831E2C354A060042A40E /* BiblioFiApp.swift */; };
 		446A83212C354A060042A40E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A83202C354A060042A40E /* ContentView.swift */; };
 		446A83232C354A080042A40E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446A83222C354A080042A40E /* Assets.xcassets */; };
@@ -33,6 +35,7 @@
 		446A83442C354BD90042A40E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 446A83432C354BD90042A40E /* FirebaseStorage */; };
 		447E08792C39A2EF006BC7F8 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447E08782C39A2EF006BC7F8 /* AuthenticationManager.swift */; };
 		447E087B2C3B11B3006BC7F8 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447E087A2C3B11B3006BC7F8 /* ResetPasswordView.swift */; };
+		44956A5E2C3C6BC900B8809E /* book2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44956A5D2C3C6BC900B8809E /* book2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,8 @@
 		08E4F5382C35E4D500D290EF /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		08E4F53A2C35E53E00D290EF /* NewSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSwift.swift; sourceTree = "<group>"; };
 		08E4F53C2C3665AF00D290EF /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
+		2F2C8C332C3CAE3E0099FDF7 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		2F2C8C352C3CBBD40099FDF7 /* MyRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRequestView.swift; sourceTree = "<group>"; };
 		446A831B2C354A060042A40E /* BiblioFi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BiblioFi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		446A831E2C354A060042A40E /* BiblioFiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiblioFiApp.swift; sourceTree = "<group>"; };
 		446A83202C354A060042A40E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +58,7 @@
 		446A832E2C354B4B0042A40E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		447E08782C39A2EF006BC7F8 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		447E087A2C3B11B3006BC7F8 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		44956A5D2C3C6BC900B8809E /* book2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = book2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,11 +112,14 @@
 				088014D92C39539600BD6EC4 /* Wishlist.swift */,
 				087C39042C37A81E00F4E326 /* ProfileView.swift */,
 				087C39002C37A7B800F4E326 /* HomeView.swift */,
+				44956A5D2C3C6BC900B8809E /* book2.swift */,
 				087C39062C37CBDA00F4E326 /* Book.swift */,
 				08E4F5382C35E4D500D290EF /* SignUpView.swift */,
 				446A83222C354A080042A40E /* Assets.xcassets */,
 				446A832E2C354B4B0042A40E /* GoogleService-Info.plist */,
 				446A83242C354A080042A40E /* Preview Content */,
+				2F2C8C332C3CAE3E0099FDF7 /* Request.swift */,
+				2F2C8C352C3CBBD40099FDF7 /* MyRequestView.swift */,
 			);
 			path = BiblioFi;
 			sourceTree = "<group>";
@@ -225,11 +234,14 @@
 				08E4F5392C35E4D500D290EF /* SignUpView.swift in Sources */,
 				447E087B2C3B11B3006BC7F8 /* ResetPasswordView.swift in Sources */,
 				088014DA2C39539600BD6EC4 /* Wishlist.swift in Sources */,
+				2F2C8C362C3CBBD50099FDF7 /* MyRequestView.swift in Sources */,
 				087C39072C37CBDA00F4E326 /* Book.swift in Sources */,
+				44956A5E2C3C6BC900B8809E /* book2.swift in Sources */,
 				087C39012C37A7B800F4E326 /* HomeView.swift in Sources */,
 				447E08792C39A2EF006BC7F8 /* AuthenticationManager.swift in Sources */,
 				08E4F53D2C3665AF00D290EF /* LoginPage.swift in Sources */,
 				446A831F2C354A060042A40E /* BiblioFiApp.swift in Sources */,
+				2F2C8C342C3CAE3E0099FDF7 /* Request.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
