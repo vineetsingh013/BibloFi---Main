@@ -1,21 +1,4 @@
-//
-//  secondOnboarding.swift
-//  BiblioFi
-//
-//  Created by Nikunj Tyagi on 10/07/24.
-//
 
-//import SwiftUI
-//
-//struct secondOnboarding: View {
-//    var body: some View {
-//        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-//    }
-//}
-//
-//#Preview {
-//    secondOnboarding()
-//}
 import SwiftUI
 
 struct secondOnboarding: View {
