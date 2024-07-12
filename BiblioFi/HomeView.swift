@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
@@ -7,21 +6,93 @@ import Firebase
 struct HomeView: View {
     @State private var isScaled = false
     @State private var showInfoCards = false
-    @State private var books1: [[String: Any]] = [[:]]
-    @State private var image1: UIImage?
     @State private var booksdetails: [Book] = []
+    @State private var showSideMenu = false
+    @State private var showLibraryView = false 
+    @State private var showProfileView = false
+    @State private var showScanner = false
+    @State private var isSearching: Bool = false
+    @State private var searchText: String = ""
+    
+    // State variable for presenting LibraryView
+
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
-                // Owl Image (Scaled)
-                Image("picture") // Replace with your actual image name
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: isScaled ? 400 : 150, height: isScaled ? 300 : 100)
+            VStack(alignment: .leading, spacing: 30) {
+                HStack {
+                    Image("Oreo") // Replace with your actual image name
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: isScaled ? 400 : 150, height: isScaled ? 300 : 100)
+
+                    Spacer()
+
+                    NavigationLink(destination: ProfileViewEE(), isActive: $showProfileView) {
+                                        Button(action: {
+                                            showProfileView.toggle()
+                                        }) {
+                                            Image(systemName: "person.circle")
+                                                .font(.title)
+                                                .foregroundColor(.black)
+                                                .padding()
+                                                .frame(width: 40, height: 40)
+                                        }
+                                    }
+                    .padding(.top, 20)
+                    .padding(.trailing)
+                }
+
+                Text("Welcome to BiblioFi!")
+                    .font(.title)
+                    .padding(.horizontal)
+
+                HStack {
+                    HStack {
+                                        Image(systemName: "magnifyingglass")
+                                            .foregroundColor(.gray)
+                                        TextField("Search by author, title, genre", text: $searchText)
+                                            .foregroundColor(.black)
+                                            .onTapGesture {
+                                                isSearching = true // Set isSearching to true when the text field is tapped
+                                            }
+                                    }
+                                    .padding()
+                                    .background(Color(.white))
+                                    .cornerRadius(8)
+                                    
+                                    // NavigationLink to LibraryView
+                                    NavigationLink(
+                                        destination: LibraryView(), // Destination view
+                                        isActive: $isSearching, // Bind isActive to isSearching state
+                                        label: {
+                                            EmptyView() // Empty view to trigger navigation programmatically
+                                        }
+                                    )
+                                    .hidden() 
+                    
+                    Button(action: {
+                                               showScanner.toggle() // Toggle the state to show the scanner view
+                                           }) {
+                                               ZStack {
+                                                   RoundedRectangle(cornerRadius: 10)
+                                                       .fill(Color.white)
+                                                       .frame(width: 50, height: 50)
+                                                       .shadow(radius: 3)
+
+                                                   Image(systemName: "barcode.viewfinder")
+                                                       .font(.title2)
+                                                       .foregroundColor(.gray)
+                                               }
+                                           }
+                                           .padding()
+                                           .sheet(isPresented: $showScanner) {
+                                               ScannerView() // Present ScannerView when showScanner is true
+                                           }
+                                       }
                 
+
                 if showInfoCards {
-                    // Info Cards Section
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             InfoCard(title: "About BiblioFi", description: "BiblioFi is your go-to library management app.")
@@ -32,100 +103,79 @@ struct HomeView: View {
                     }
                     .transition(.scale)
                 }
-                
-                Text("Welcome")
-                    .font(.custom("Avenir Next Bold", size: 35))
-                    .padding(.horizontal)
-                
+
                 Text("Trending Books")
-                    .font(.custom("Avenir Next Bold", size: 20))
+                    .font(.custom("Avenir Next Demi Bold", size: 30))
                     .padding(.horizontal)
-                
+
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
                         ForEach(booksdetails) { book in
                             NavigationLink(destination: DetailView(book: book)) {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .fill(Color.white.opacity(0.3))
-                                        .background(Blur(style: .systemMaterial))
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        .shadow(radius: 3)
-                                        .frame(width: 200, height: 300)
-                                    
-                                    VStack {
-                                        Image("Book")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 150, height: 180)
-                                        Text(book.title)
-                                            .font(.headline)
-                                            .foregroundColor(.black)
-                                        Text(book.author)
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
-                                    }
-                                    .padding()
-                                }
-                                .frame(width: 200, height: 300)
-                                .padding(.horizontal, 4)
+                                BookCard(book: book)
                             }
+                            .frame(width: 280, height: 280)
+                            .padding(.horizontal, 4)
                         }
                     }
                     .padding(.horizontal)
                 }
-                
-                    .onAppear {
-                        fetchCourses()
+
+                Text("Recommendations")
+                    .font(.custom("Avenir Next Demi Bold", size: 25))
+                    .padding(.horizontal)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(booksdetails) { book in
+                            NavigationLink(destination: DetailView(book: book)) {
+                                BookCardSmall(book: book)
+                            }
+                            .frame(width: 180, height: 210)
+                            .padding(.horizontal, 4)
+                        }
                     }
-//                }
-//
+                    .padding(.horizontal)
+                }
+
+                Text("Newspaper")
+                    .font(.custom("Avenir Next Demi Bold", size: 25))
+                    .padding(.horizontal)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(booksdetails) { book in
+                            NavigationLink(destination: DetailView(book: book)) {
+                                BookCardSmall(book: book)
+                            }
+                            .frame(width: 180, height: 210)
+                            .padding(.horizontal, 4)
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+
                 Text("Membership")
-                    .font(.custom("Avenir Next Bold", size: 20))
+                    .font(.custom("Avenir Next Demi Bold", size: 30))
                     .padding(.horizontal)
-                
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white.opacity(0.3))
-                        .background(Blur(style: .systemMaterial))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .shadow(radius: 3)
-                        .padding()
-                    
-                    VStack {
-                        Text("Become a Member")
-                            .font(.title)
-                            .foregroundColor(.black)
-                            .padding()
-                        Text("Join our library to get exclusive access to more content and features.")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                            .multilineTextAlignment(.center)
-                            .padding()
-                        Button(action: {
-                            // Action for membership button
-                        }) {
-                            Text("Join Now")
-                                .font(.headline)
-                                .padding()
-                                .background(Color(hex: "#8B551B"))
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                                .padding()
-                        }
-                    }
-                    .padding()
-                }
-                .padding(.horizontal)
+
+                MembershipCard()
+                    .padding(.horizontal)
             }
         }
-        .background(LinearGradient(gradient: Gradient(colors: [Color(hex: "#ffffff"), Color(hex: "#f1d4cf")]),
-                                   startPoint: .topLeading,
-                                   endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all))
+        .background(
+            LinearGradient(gradient: Gradient(colors: [Color(hex: "#ffffff"), Color(hex: "#f1d4cf")]),
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+        )
         .navigationBarHidden(true)
+        .onAppear {
+            fetchBooks()
+        }
     }
 
-    func fetchCourses() {
+    func fetchBooks() {
         let db = Firestore.firestore()
         db.collection("Books").getDocuments { snapshot, error in
             if let error = error {
@@ -136,280 +186,382 @@ struct HomeView: View {
                     let author = (data["authors"] as? [String])?.first ?? "Unknown Author"
                     let title = data["title"] as? String ?? "No Title"
                     let description = data["description"] as? String ?? "No Description"
-//                    let image = data["image"] as? String ?? "placeholder"
-                    return Book(title: title, author: author, description: description)
+                    let imageLinksData = data["imageLinks"] as? [String: String]
+                    let imageLinks = imageLinksData.flatMap { ImageLinksCustom(thumbnail: $0["thumbnail"]) }
+
+                    return Book(title: title, author: author, description: description, imageLinks: imageLinks)
                 } ?? []
+                print("Fetched \(booksdetails.count) books")
             }
-            //print(booksdetails)
         }
     }
-
-
-    func loadImage(from url: URL) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Failed to load image from \(url): \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            DispatchQueue.main.async {
-                print("join")
-                self.image1 = UIImage(data: data)!
-            }
-        }.resume()
-    }
-
-}
-struct Book: Identifiable {
-    var id = UUID()
-    var title: String
-    var author: String
-    var description: String // Added description field
-//    var image: String
 }
 
-
-struct InfoCard: View {
-    var title: String
-    var description: String
+struct BookCard: View {
+    let book: Book
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color.white.opacity(0.8))
-                .frame(width: 300, height: 200)
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.white.opacity(0.3))
+                .background(Blur(style: .systemMaterial))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
                 .shadow(radius: 3)
+
             VStack {
-                Text(title)
+                if let urlString = book.imageLinks?.thumbnail, let url = URL(string: urlString) {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 150, height: 180)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                } else {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                }
+
+                Text(book.title)
                     .font(.headline)
                     .foregroundColor(.black)
-                    .padding(.bottom, 5)
+
+                Text(book.author)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+            .padding()
+        }
+    }
+}
+
+struct BookCardSmall: View {
+    let book: Book
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.white.opacity(0.3))
+                .background(Blur(style: .systemMaterial))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .shadow(radius: 3)
+
+            VStack {
+                if let urlString = book.imageLinks?.thumbnail, let url = URL(string: urlString) {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 120)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                } else {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                }
+
+                Text(book.title)
+                    .font(.headline)
+                    .foregroundColor(.black)
+
+                Text(book.author)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+            .padding()
+        }
+    }
+}
+
+struct MembershipCard: View {
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.white.opacity(0.3))
+                .background(Blur(style: .systemMaterial))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .shadow(radius: 3)
+                .padding()
+
+            VStack {
+                Text("Become a Member")
+                    .font(.title)
+                    .foregroundColor(.black)
+                    .padding()
+
+                Text("Join our library to get exclusive access to more content and features.")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding()
+
+                Button(action: {
+                    // Action for membership button
+                }) {
+                    Text("Join Now")
+                        .font(.headline)
+                        .padding()
+                        .background(Color(hex: "#8B551B"))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .padding()
+                }
+            }
+            .padding()
+        }
+    }
+}
+
+struct InfoCard: View {
+    let title: String
+    let description: String
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.white.opacity(0.3))
+                .background(Blur(style: .systemMaterial))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .shadow(radius: 3)
+
+            VStack {
+                Text(title)
+                    .font(.title)
+                    .foregroundColor(.black)
+                    .padding()
+
                 Text(description)
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal)
+                    .padding()
             }
             .padding()
         }
-        .padding(.horizontal, 10)
     }
 }
 
-struct DetailView: View {
-    @State private var showConfirmationSheet = false
-    @State private var statusMessage: String = ""
-    var book: Book
-
-    var body: some View {
-        VStack {
-            ScrollView {
-                // Book image and details
-                HStack(alignment: .top) {
-                    Image("Book") // Replace with the actual image name
-                        .resizable()
-                        .frame(width: 120, height: 180)
-                        .cornerRadius(8)
-                    
-                    VStack(alignment: .leading, spacing: 7) {
-                        Text(book.title)
-                            .font(.custom("AvenirNext-Bold", size: 30))
-                            .fontWeight(.bold)
-                        
-                        Text(book.author)
-                            .font(.custom("AvenirNext-Regular", size: 15))                            .foregroundColor(.gray)
-                        
-                        HStack {
-                            ForEach(0..<5) { index in
-                                Image(systemName: index < 4 ? "star.fill" : "star")
-                                    .foregroundColor(.yellow)
-                            }
-                        }
-                        Text(true ? "Available" : "Out of Stock")
-                            .font(.custom("AvenirNext-Regular", size: 15))
-                            .foregroundColor(true ? .green : .red)
-                    }
-                    Spacer()
-                    
-                    // Heart button
-                    Button(action: {
-                        // Action for the heart button
-                    }) {
-                        Image(systemName: "heart")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.black)
-                    }
-                }
-                .padding()
-                Divider()
-                
-                // Book information
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Text("Title: ")
-                            .font(.custom("AvenirNext-Bold", size: 16))
-                        Text(book.title)
-                            .font(.custom("AvenirNext-Regular", size: 16))
-                    }
-                    
-                    HStack {
-                        Text("Author: ")
-                            .font(.custom("AvenirNext-Bold", size: 16))
-                        Text(book.author)
-                            .font(.custom("AvenirNext-Regular", size: 16))
-                    }
-                    
-                    HStack {
-                        Text("Status: ")
-                            .font(.custom("AvenirNext-Bold", size: 16))
-                        Text("Available")
-                            .font(.custom("AvenirNext-Regular", size: 16))
-                    }
-                    
-                    HStack {
-                        Text("Number of Copies: ")
-                            .font(.custom("AvenirNext-Bold", size: 16))
-                        Text("3 available")
-                            .font(.custom("AvenirNext-Regular", size: 16))
-                    }
-                    
-                    Text("Description: ")
-                        .font(.custom("AvenirNext-Bold", size: 16))
-                        .padding(.top, 1)
-                    
-                    Text(book.description)
-                        .font(.custom("AvenirNext-Regular", size: 16))
-                }
-                .padding()
-            }
-            
-            // Checkout and Add to Cart buttons
-            Divider()
-            HStack {
-                Button(action: {
-                    showConfirmationSheet = true
-                }) {
-                    HStack {
-                        Image(systemName: "cart")
-                        Text("Checkout")
-                            .font(.custom("AvenirNext-Bold", size: 18))
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(hex: "#945200"))
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                }
-                .sheet(isPresented: $showConfirmationSheet) {
-                    ConfirmationSheet(isPresented: $showConfirmationSheet, book: book, statusMessage: $statusMessage)
-                }
-                
-                Button(action: {
-                    // Action for the Add to Cart button
-                }) {
-                    HStack {
-                        Image(systemName: "bag")
-                        Text("Add to Cart")
-                            .font(.custom("AvenirNext-Bold", size: 18))
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(hex: "#945200"))
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                }
-            }
-            .padding()
-        }
-        .background(Color(hex: "#F9EDEA"))
-    }
+struct Book: Identifiable {
+    let id = UUID()
+    let title: String
+    let author: String
+    let description: String
+    let imageLinks: ImageLinksCustom?
 }
+
+struct ImageLinksCustom {
+    let thumbnail: String?
+}
+
+
+
+ struct DetailView: View {
+     @State private var showConfirmationSheet = false
+     @State private var statusMessage: String = ""
+     @State private var availableCopies: Int = 0
+     var book: Book
+
+     var body: some View {
+         VStack {
+             ScrollView {
+                 // Book image and details
+                 HStack(alignment: .top) {
+                     if let urlString = book.imageLinks?.thumbnail, let url = URL(string: urlString) {
+                         AsyncImage(url: url) { image in
+                             image
+                                 .resizable()
+                                 .scaledToFit()
+                                 .frame(width: 150, height: 180)
+                         } placeholder: {
+                             ProgressView()
+                         }
+                     } else {
+                         Image(systemName: "photo")
+                             .resizable()
+                             .scaledToFit()
+                             .frame(width: 50, height: 50)
+                     }
+
+                     VStack(alignment: .leading, spacing: 7) {
+                         Text(book.title)
+                             .font(.custom("AvenirNext-Bold", size: 30))
+                             .fontWeight(.bold)
+
+                         Text(book.author)
+                             .font(.custom("AvenirNext-Regular", size: 15))
+                             .foregroundColor(.gray)
+
+                         HStack {
+                             ForEach(0..<5) { index in
+                                 Image(systemName: index < 4 ? "star.fill" : "star")
+                                     .foregroundColor(.yellow)
+                             }
+                         }
+                         Text(availableCopies > 0 ? "Available" : "Out of Stock")
+                             .font(.custom("AvenirNext-Regular", size: 15))
+                             .foregroundColor(availableCopies > 0 ? .green : .red)
+                     }
+                     Spacer()
+
+                     // Heart button
+                     Button(action: {
+                         // Action for the heart button
+                     }) {
+                         Image(systemName: "heart")
+                             .resizable()
+                             .frame(width: 24, height: 24)
+                             .foregroundColor(.black)
+                     }
+                 }
+                 .padding()
+                 Divider()
+
+                 // Book information
+                 VStack(alignment: .leading, spacing: 8) {
+                     HStack {
+                         Text("Title: ")
+                             .font(.custom("AvenirNext-Bold", size: 16))
+                         Text(book.title)
+                             .font(.custom("AvenirNext-Regular", size: 16))
+                     }
+
+                     HStack {
+                         Text("Author: ")
+                             .font(.custom("AvenirNext-Bold", size: 16))
+                         Text(book.author)
+                             .font(.custom("AvenirNext-Regular", size: 16))
+                     }
+
+                     HStack {
+                         Text("Status: ")
+                             .font(.custom("AvenirNext-Bold", size: 16))
+                         Text(availableCopies > 0 ? "Available" : "Out of Stock")
+                             .font(.custom("AvenirNext-Regular", size: 16))
+                     }
+
+                     HStack {
+                         Text("Number of copies")
+                             .font(.custom("AvenirNext-Bold", size: 16))
+                         Text("\(availableCopies) available")
+                             .font(.custom("AvenirNext-Regular", size: 16))
+                     }
+
+                     Text("Description: ")
+                         .font(.custom("AvenirNext-Bold", size: 16))
+                         .padding(.top, 1)
+
+                     Text(book.description)
+                         .font(.custom("AvenirNext-Regular", size: 16))
+                 }
+                 .padding()
+             }
+
+             // Checkout and Add to Cart buttons
+             Divider()
+             HStack {
+                 Button(action: {
+                     showConfirmationSheet = true
+                 }) {
+                     HStack {
+                         Image(systemName: "cart")
+                         Text("Checkout")
+                             .font(.custom("AvenirNext-Bold", size: 18))
+                     }
+                     .frame(maxWidth: .infinity)
+                     .padding()
+                     .background(Color(hex: "#945200"))
+                     .foregroundColor(.white)
+                     .cornerRadius(8)
+                 }
+                 .sheet(isPresented: $showConfirmationSheet) {
+                     ConfirmationSheet(isPresented: $showConfirmationSheet, book: book, statusMessage: $statusMessage)
+                 }
+
+                 Button(action: {
+                     // Action for the Add to Cart button
+                 }) {
+                     HStack {
+                         Image(systemName: "bag")
+                         Text("Add to Cart")
+                             .font(.custom("AvenirNext-Bold", size: 18))
+                     }
+                     .frame(maxWidth: .infinity)
+                     .padding()
+                     .background(Color(hex: "#945200"))
+                     .foregroundColor(.white)
+                     .cornerRadius(8)
+                 }
+             }
+             .padding()
+         }
+         .background(Color(hex: "#F9EDEA"))
+         .onAppear {
+             fetchAvailableCopies()
+         }
+     }
+
+     func fetchAvailableCopies() {
+         let db = Firestore.firestore()
+         db.collection("Books").document(book.title).getDocument { snapshot, error in
+             if let error = error {
+                 print("Error fetching document: \(error)")
+             } else if let snapshot = snapshot, let data = snapshot.data() {
+                 availableCopies = data["availableCopies"] as? Int ?? 0
+             }
+         }
+     }
+ }
 
 struct ConfirmationSheet: View {
     @Binding var isPresented: Bool
     var book: Book
     @Binding var statusMessage: String
+    @State private var selectedDuration = 1
 
     var body: some View {
         VStack(spacing: 20) {
-            Text(book.title)
-                .font(.custom("Avenir Next Bold", size: 24))
-                .multilineTextAlignment(.center)
-                .padding(.top)
-
-            Text("Confirm your issue for '\(book.title)' by \(book.author)?")
-                .font(.custom("Avenir Next Regular", size: 18))
-                .multilineTextAlignment(.center)
-                .padding()
-
-            HStack(spacing: 20) {
-                Button(action: {
-                    sendIssueRequest()
-                    isPresented = false
-                }) {
-                    Text("Confirm")
-                        .font(.custom("Avenir Next Regular", size: 16))
-                        .padding()
-                        .frame(minWidth: 100)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-
-                Button(action: {
-                    isPresented = false
-                }) {
-                    Text("Cancel")
-                        .font(.custom("Avenir Next Regular", size: 16))
-                        .padding()
-                        .frame(minWidth: 100)
-                        .background(Color.red)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+            Text("Select Duration")
+                .font(.headline)
+            Picker("Duration", selection: $selectedDuration) {
+                ForEach(1...7, id: \.self) { day in
+                    Text("\(day) \(day == 1 ? "day" : "days")")
                 }
             }
-            .padding(.bottom)
+            .pickerStyle(WheelPickerStyle())
+
+            Button(action: {
+                // Handle checkout logic
+                isPresented = false
+            }) {
+                Text("Confirm")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
+
+            Button(action: {
+                isPresented = false
+            }) {
+                Text("Cancel")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
         }
         .padding()
-        .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.4)
-        .background(Color(hex: "#F9EDEA")) // Replace with the custom color
-        .cornerRadius(12)
-        .shadow(radius: 10)
-    }
-
-    func sendIssueRequest() {
-        guard let user = Auth.auth().currentUser else {
-            statusMessage = "User not authenticated"
-            return
-        }
-        
-        let db = Firestore.firestore()
-        let request = [
-            "memberId": user.uid,
-            "memberName":user.email,
-            "bookId": book.id.uuidString,
-            "bookName": book.title,
-            "status": "pending",
-            "timestamp": FieldValue.serverTimestamp()
-        ] as [String : Any]
-        
-        db.collection("requests").addDocument(data: request) { error in
-            if let error = error {
-                statusMessage = "Error: \(error.localizedDescription)"
-            } else {
-                statusMessage = "Request Sent"
-            }
-        }
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
-
-// Helper for Blur effect
 struct Blur: UIViewRepresentable {
     var style: UIBlurEffect.Style
 
@@ -419,29 +571,3 @@ struct Blur: UIViewRepresentable {
 
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
 }
-
-//extension Color {
-//    init(hex: String) {
-//        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-//        var int = UInt64()
-//        Scanner(string: hex).scanHexInt64(&int)
-//        let a, r, g, b: UInt64
-//        switch hex.count {
-//        case 3: // RGB (12-bit)
-//            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-//        case 6: // RGB (24-bit)
-//            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-//        case 8: // ARGB (32-bit)
-//            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-//        default:
-//            (a, r, g, b) = (255, 0, 0, 0)
-//        }
-//        self.init(
-//            .sRGB,
-//            red: Double(r) / 255,
-//            green: Double(g) / 255,
-//            blue: Double(b) / 255,
-//            opacity: Double(a) / 255
-//        )
-//    }
-//}

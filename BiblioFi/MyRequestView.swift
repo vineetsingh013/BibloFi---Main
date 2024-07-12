@@ -24,8 +24,9 @@ struct MyRequestView: View {
                         .foregroundColor(statusColor(request.status))
                 }
             }
+            .navigationBarTitle("Library", displayMode: .large)
             .onAppear(perform: fetchMyRequests)
-            .navigationBarTitle("My Requests", displayMode: .inline)
+            
         }
     }
 

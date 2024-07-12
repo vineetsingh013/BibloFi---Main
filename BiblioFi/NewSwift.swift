@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NewSwift: View {
+   
     var body: some View {
         TabView {
             // Home Tab
@@ -26,18 +27,18 @@ struct NewSwift: View {
 ////                DiscoverView()
 //                    .navigationBarBackButtonHidden(true)
 //                    .navigationBarHidden(true)
-                LibraryView()
+                SeatBook()
                     .navigationBarBackButtonHidden(true)
                     .navigationBarHidden(true)
             }
             .tabItem {
                 Image(systemName: "sparkles")
-                Text("Discover")
+                Text("Reserve")
             }
             
             // Library Tab
             NavigationView {
-                MyRequestView()
+                ProfileView()
                     .navigationBarBackButtonHidden(true)
                     .navigationBarHidden(true)
                
@@ -47,16 +48,7 @@ struct NewSwift: View {
                 Text("Library")
             }
             
-            // Profile Tab
-            NavigationView {
-                ProfileView()
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarHidden(true)
-            }
-            .tabItem {
-                Image(systemName: "person")
-                Text("Profile")
-            }
+
         }
         .accentColor(Color(hex: "#8B551B")) // Set accent color to dark color (#8B551B)
         .background(Color.white.opacity(0.9)) // Set background color with light transparency

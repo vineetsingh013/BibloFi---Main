@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08371B152C3EA1BA004F6E8B /* libraryViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B142C3EA1BA004F6E8B /* libraryViewTab.swift */; };
+		08371B1F2C3EFC1B004F6E8B /* MajorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B1E2C3EFC1B004F6E8B /* MajorScreen.swift */; };
+		08371B212C3EFC90004F6E8B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B202C3EFC90004F6E8B /* ContentView.swift */; };
+		08371B232C3EFD52004F6E8B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B222C3EFD52004F6E8B /* OnboardingView.swift */; };
+		08371B252C3EFD7E004F6E8B /* CircleGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B242C3EFD7E004F6E8B /* CircleGroupView.swift */; };
+		08371B272C3EFEAD004F6E8B /* secondOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B262C3EFEAD004F6E8B /* secondOnboarding.swift */; };
+		08371B632C3FD9A9004F6E8B /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B622C3FD9A9004F6E8B /* SideMenu.swift */; };
+		08371B9B2C408F29004F6E8B /* SeatBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B9A2C408F29004F6E8B /* SeatBook.swift */; };
+		08371B9D2C4096AC004F6E8B /* ProfileViewEE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B9C2C4096AC004F6E8B /* ProfileViewEE.swift */; };
+		08371B9F2C40F1B4004F6E8B /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371B9E2C40F1B4004F6E8B /* EditProfileView.swift */; };
+		08371BA12C40F948004F6E8B /* FineDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371BA02C40F948004F6E8B /* FineDetail.swift */; };
+		08371BA32C40FEA1004F6E8B /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371BA22C40FEA1004F6E8B /* ScannerView.swift */; };
+		08371BA52C41178C004F6E8B /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08371BA42C41178C004F6E8B /* Demo.swift */; };
 		087C39012C37A7B800F4E326 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087C39002C37A7B800F4E326 /* HomeView.swift */; };
 		087C39032C37A7E100F4E326 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087C39022C37A7E100F4E326 /* LibraryView.swift */; };
 		087C39052C37A81E00F4E326 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087C39042C37A81E00F4E326 /* ProfileView.swift */; };
@@ -19,7 +32,6 @@
 		2F2C8C342C3CAE3E0099FDF7 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C8C332C3CAE3E0099FDF7 /* Request.swift */; };
 		2F2C8C362C3CBBD50099FDF7 /* MyRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C8C352C3CBBD40099FDF7 /* MyRequestView.swift */; };
 		446A831F2C354A060042A40E /* BiblioFiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A831E2C354A060042A40E /* BiblioFiApp.swift */; };
-		446A83212C354A060042A40E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A83202C354A060042A40E /* ContentView.swift */; };
 		446A83232C354A080042A40E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446A83222C354A080042A40E /* Assets.xcassets */; };
 		446A83262C354A080042A40E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446A83252C354A080042A40E /* Preview Assets.xcassets */; };
 		446A832F2C354B4B0042A40E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 446A832E2C354B4B0042A40E /* GoogleService-Info.plist */; };
@@ -39,6 +51,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08371B142C3EA1BA004F6E8B /* libraryViewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = libraryViewTab.swift; sourceTree = "<group>"; };
+		08371B1E2C3EFC1B004F6E8B /* MajorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorScreen.swift; sourceTree = "<group>"; };
+		08371B202C3EFC90004F6E8B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		08371B222C3EFD52004F6E8B /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		08371B242C3EFD7E004F6E8B /* CircleGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleGroupView.swift; sourceTree = "<group>"; };
+		08371B262C3EFEAD004F6E8B /* secondOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondOnboarding.swift; sourceTree = "<group>"; };
+		08371B622C3FD9A9004F6E8B /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		08371B9A2C408F29004F6E8B /* SeatBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatBook.swift; sourceTree = "<group>"; };
+		08371B9C2C4096AC004F6E8B /* ProfileViewEE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewEE.swift; sourceTree = "<group>"; };
+		08371B9E2C40F1B4004F6E8B /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		08371BA02C40F948004F6E8B /* FineDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDetail.swift; sourceTree = "<group>"; };
+		08371BA22C40FEA1004F6E8B /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		08371BA42C41178C004F6E8B /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 		087C39002C37A7B800F4E326 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		087C39022C37A7E100F4E326 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		087C39042C37A81E00F4E326 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -50,9 +75,9 @@
 		08E4F53C2C3665AF00D290EF /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		2F2C8C332C3CAE3E0099FDF7 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		2F2C8C352C3CBBD40099FDF7 /* MyRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRequestView.swift; sourceTree = "<group>"; };
+		2FEFD9C22C3D081900B90B77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		446A831B2C354A060042A40E /* BiblioFi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BiblioFi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		446A831E2C354A060042A40E /* BiblioFiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiblioFiApp.swift; sourceTree = "<group>"; };
-		446A83202C354A060042A40E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		446A83222C354A080042A40E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		446A83252C354A080042A40E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		446A832E2C354B4B0042A40E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -101,17 +126,30 @@
 		446A831D2C354A060042A40E /* BiblioFi */ = {
 			isa = PBXGroup;
 			children = (
+				2FEFD9C22C3D081900B90B77 /* Info.plist */,
 				447E08772C39A2DD006BC7F8 /* Onboarding */,
 				446A831E2C354A060042A40E /* BiblioFiApp.swift */,
-				446A83202C354A060042A40E /* ContentView.swift */,
+				08371B202C3EFC90004F6E8B /* ContentView.swift */,
+				08371B222C3EFD52004F6E8B /* OnboardingView.swift */,
+				08371B262C3EFEAD004F6E8B /* secondOnboarding.swift */,
+				08371B242C3EFD7E004F6E8B /* CircleGroupView.swift */,
+				08371B1E2C3EFC1B004F6E8B /* MajorScreen.swift */,
 				08E4F53C2C3665AF00D290EF /* LoginPage.swift */,
 				447E087A2C3B11B3006BC7F8 /* ResetPasswordView.swift */,
 				08E4F53A2C35E53E00D290EF /* NewSwift.swift */,
+				08371B9C2C4096AC004F6E8B /* ProfileViewEE.swift */,
+				08371BA02C40F948004F6E8B /* FineDetail.swift */,
+				08371B9E2C40F1B4004F6E8B /* EditProfileView.swift */,
+				08371B142C3EA1BA004F6E8B /* libraryViewTab.swift */,
 				088014A12C3916DB00BD6EC4 /* Color.swift */,
 				087C39022C37A7E100F4E326 /* LibraryView.swift */,
+				08371BA42C41178C004F6E8B /* Demo.swift */,
+				08371B9A2C408F29004F6E8B /* SeatBook.swift */,
 				088014D92C39539600BD6EC4 /* Wishlist.swift */,
 				087C39042C37A81E00F4E326 /* ProfileView.swift */,
 				087C39002C37A7B800F4E326 /* HomeView.swift */,
+				08371BA22C40FEA1004F6E8B /* ScannerView.swift */,
+				08371B622C3FD9A9004F6E8B /* SideMenu.swift */,
 				44956A5D2C3C6BC900B8809E /* book2.swift */,
 				087C39062C37CBDA00F4E326 /* Book.swift */,
 				08E4F5382C35E4D500D290EF /* SignUpView.swift */,
@@ -229,16 +267,28 @@
 				087C39052C37A81E00F4E326 /* ProfileView.swift in Sources */,
 				087C39032C37A7E100F4E326 /* LibraryView.swift in Sources */,
 				08E4F53B2C35E53E00D290EF /* NewSwift.swift in Sources */,
+				08371B272C3EFEAD004F6E8B /* secondOnboarding.swift in Sources */,
+				08371B1F2C3EFC1B004F6E8B /* MajorScreen.swift in Sources */,
 				088014A22C3916DC00BD6EC4 /* Color.swift in Sources */,
-				446A83212C354A060042A40E /* ContentView.swift in Sources */,
+				08371B9B2C408F29004F6E8B /* SeatBook.swift in Sources */,
 				08E4F5392C35E4D500D290EF /* SignUpView.swift in Sources */,
 				447E087B2C3B11B3006BC7F8 /* ResetPasswordView.swift in Sources */,
+				08371BA32C40FEA1004F6E8B /* ScannerView.swift in Sources */,
+				08371B152C3EA1BA004F6E8B /* libraryViewTab.swift in Sources */,
 				088014DA2C39539600BD6EC4 /* Wishlist.swift in Sources */,
 				2F2C8C362C3CBBD50099FDF7 /* MyRequestView.swift in Sources */,
+				08371B9D2C4096AC004F6E8B /* ProfileViewEE.swift in Sources */,
+				08371B632C3FD9A9004F6E8B /* SideMenu.swift in Sources */,
+				08371BA12C40F948004F6E8B /* FineDetail.swift in Sources */,
+				08371B252C3EFD7E004F6E8B /* CircleGroupView.swift in Sources */,
+				08371B9F2C40F1B4004F6E8B /* EditProfileView.swift in Sources */,
+				08371BA52C41178C004F6E8B /* Demo.swift in Sources */,
 				087C39072C37CBDA00F4E326 /* Book.swift in Sources */,
+				08371B232C3EFD52004F6E8B /* OnboardingView.swift in Sources */,
 				44956A5E2C3C6BC900B8809E /* book2.swift in Sources */,
 				087C39012C37A7B800F4E326 /* HomeView.swift in Sources */,
 				447E08792C39A2EF006BC7F8 /* AuthenticationManager.swift in Sources */,
+				08371B212C3EFC90004F6E8B /* ContentView.swift in Sources */,
 				08E4F53D2C3665AF00D290EF /* LoginPage.swift in Sources */,
 				446A831F2C354A060042A40E /* BiblioFiApp.swift in Sources */,
 				2F2C8C342C3CAE3E0099FDF7 /* Request.swift in Sources */,
@@ -378,6 +428,7 @@
 				DEVELOPMENT_TEAM = 9PP9B69T7Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BiblioFi/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -407,6 +458,7 @@
 				DEVELOPMENT_TEAM = 9PP9B69T7Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BiblioFi/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
